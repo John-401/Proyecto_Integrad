@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Biblioteca El Saber — CRUD</title>
+  <link rel="stylesheet" href="css/estilos.css">
+  <script>
+    // Simulación simple CRUD en memoria (solo para demostración)
+    let libros = [];
+
+    function crearLibro() {
+      const titulo = document.getElementById('titulo').value.trim();
+      const autor = document.getElementById('autor').value.trim();
+      const genero = document.getElementById('genero').value.trim();
+      const anio = document.getElementById('anio').value;
+      if (!titulo || !autor) { alert('Título y autor son obligatorios'); return; }
+      const id = Date.now();
+      libros.push({ id, titulo, autor, genero, anio });
+      limpiarFormulario();
+      renderizarTabla();
+    }
+
+    function leerLibros() {
+      renderizarTabla();
+    }
+
+    function actualizarLibro(id) {
+      const libro = libros.find(l => l.id === id);
+      if (!libro) return;
+      document.getElementById('titulo').value = libro.titulo;
+      document.getElementById('autor').value = libro.autor;
+      document.getElementById('genero').value = libro.genero;
+      document.getElementById('anio').value = libro.anio;
+      // Cambiamos el botón Crear por Guardar
+      const btn = document.getElementById('btn-crear');
+      btn.textContent = 'Guardar cambios';
+      btn.onclick = function() { guardarCambios(id); };
+    }
+
+    function guardarCambios(id) {
+      const libro = libros.find(l => l.id === id);
+      libro.titulo = document.getElementById('titulo').value.trim();
+      libro.autor = document.getElementById('autor').value.trim();
+      libro.genero = document.getElementById('genero').value.trim();
+      libro.anio = document.getElementById('anio').value;
+      document.getElementById('btn-crear').textContent = 'Crear';
+      document.getElementById('btn-crear').onclick = crearLibro;
+      limpiarFormulario();
+      renderizarTabla();
+    }
+
+    function borrarLibro(id) {
+      libros = libros.filter(l => l.id !== id);
+      renderizarTabla();
+    }
+
+    function limpiarFormulario() {
+      document.getElementById('crud-form').reset();
+    }
+
+    function renderizarTabla() {
+      const tbody = document.getElementById('tabla-libros');
+      tbody.innerHTML = '';
+      if (libros.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5">No hay libros registrados</td></tr>';
+        return;
+      }
+      libros.forEach(l => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${l.titulo}</td>
+          <td>${l.autor}</td>
+          <td>${l.genero || '-'}</td>
+          <td>${l.anio || '-'}</td>
+          <td class="actions">
+            <button onclick="actualizarLibro(${l.id})">Editar</button>
+            <button onclick="borrarLibro(${l.id})" class="danger">Borrar</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <img src="img/logo.png" alt="Logo Biblioteca El Saber" class="logo">
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html" class="nav-link">Inicio</a></li>
+          <li><a href="servicios.html" class="nav-link">Servicios</a></li>
+          <li><a href="crud.html" class="nav-link activo">CRUD</a></li>
+          <li><a href="modelo_bd.html" class="nav-link">Base de Datos</a></li>
+          <li><a href="logica.html" class="nav-link">Lógica</a></li>
+          <li><a href="contacto.html" class="nav-link">Contacto</a></li>
+          <li><a href="equipo.html" class="nav-link">Equipo</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2>Gestión de Libros (CRUD)</h2>
+
+    <form id="crud-form" class="form-crud" onsubmit="event.preventDefault();">
+      <label for="titulo">Título</label>
+      <input id="titulo" type="text" placeholder="Nombre del libro" required>
+
+      <label for="autor">Autor</label>
+      <input id="autor" type="text" placeholder="Autor" required>
+
+      <label for="genero">Género</label>
+      <input id="genero" type="text" placeholder="Ej. Ficción, Historia">
+
+      <label for="anio">Año de publicación</label>
+      <input id="anio" type="number" min="1000" max="2099" placeholder="2020">
+
+      <div class="form-actions">
+        <button id="btn-crear" type="button" onclick="crearLibro()">Crear</button>
+        <button type="button" onclick="leerLibros()">Leer</button>
+        <button type="button" onclick="limpiarFormulario()">Limpiar</button>
+      </div>
+    </form>
+
+    <section class="table-wrap">
+      <table class="table-libros">
+        <thead>
+          <tr><th>Título</th><th>Autor</th><th>Género</th><th>Año</th><th>Acciones</th></tr>
+        </thead>
+        <tbody id="tabla-libros">
+          <tr><td colspan="5">No hay libros registrados</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; 2025 Biblioteca El Saber</p>
+    </div>
+  </footer>
+</body>
+</html>

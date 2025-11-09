@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Biblioteca El Saber — Contacto</title>
+  <link rel="stylesheet" href="css/estilos.css">
+  <script>
+    // simulación envío (no real)
+    function enviarContacto(e) {
+      e.preventDefault();
+      const nombre = document.getElementById('nombre').value.trim();
+      const correo = document.getElementById('correo').value.trim();
+      const mensaje = document.getElementById('mensaje').value.trim();
+      if (!nombre || !correo || !mensaje) { alert('Complete todos los campos.'); return; }
+      alert('Mensaje enviado (simulado). Gracias, ' + nombre + '!');
+      document.getElementById('contacto-form').reset();
+    }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <img src="img/logo.png" alt="Logo Biblioteca El Saber" class="logo">
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html" class="nav-link">Inicio</a></li>
+          <li><a href="servicios.html" class="nav-link">Servicios</a></li>
+          <li><a href="crud.html" class="nav-link">CRUD</a></li>
+          <li><a href="modelo_bd.html" class="nav-link">Base de Datos</a></li>
+          <li><a href="logica.html" class="nav-link">Lógica</a></li>
+          <li><a href="contacto.html" class="nav-link activo">Contacto</a></li>
+          <li><a href="equipo.html" class="nav-link">Equipo</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2>Contacto</h2>
+    <p>Si tienes preguntas o quieres más información, escríbenos.</p>
+
+    <form id="contacto-form" class="form-contacto" onsubmit="enviarContacto(event)">
+      <label for="nombre">Nombre</label>
+      <input id="nombre" type="text" placeholder="Tu nombre" required>
+
+      <label for="correo">Correo electrónico</label>
+      <input id="correo" type="email" placeholder="tu@correo.com" required>
+
+      <label for="mensaje">Mensaje</label>
+      <textarea id="mensaje" rows="5" placeholder="Escribe tu mensaje" required></textarea>
+
+      <div class="form-actions">
+        <button type="submit">Enviar</button>
+      </div>
+    </form>
+
+    <section class="contact-info">
+      <h3>Dirección</h3>
+      <p>Calle Falsa 123, Ciudad Ejemplo</p>
+      <h3>Teléfono</h3>
+      <p>(+57) 300 000 0000</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; 2025 Biblioteca El Saber</p>
+    </div>
+  </footer>
+</body>
+</html>
