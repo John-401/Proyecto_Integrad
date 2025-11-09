@@ -1,4 +1,4 @@
-# Proyecto_Integrad
+# Proyecto_Integrador
 Este es nuestro proyecto para ganar el semestre
 
 NOS FALTA LA VALENTINA PTM
