@@ -5,3 +5,5 @@ NOS FALTA LA VALENTINA PTM
 
 JJAJAJAJAJAJAJAJAAJ vamos adelantando, ahorita mando un ejemplo
 
+Nada mal pero son muchas paginas, pues no era meter eso en pocas pagina, lo que si estaria por separado seria lo del base de 
+datos y lo de logica. Mañana metere todo eso en una rama para tenerlo todo en un solo repositorio
